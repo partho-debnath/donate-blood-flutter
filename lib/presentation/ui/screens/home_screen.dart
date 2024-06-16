@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../state_holder/donar_list_controller.dart';
 import '../widgets/donar_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,7 +12,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  get child => null;
+  @override
+  void initState() {
+    Get.find<DonalListController>().getDonarData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +50,27 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: const Drawer(),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return const DonarCard();
+      body: GetBuilder<DonalListController>(
+        builder: (donalListController) {
+          if (donalListController.isDonarDataInProgress) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return RefreshIndicator(
+            onRefresh: () async {
+              await donalListController.getDonarData();
+            },
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return DonarCard(
+                  donarData:
+                      donalListController.donarDataModel.donarData![index],
+                );
+              },
+              itemCount:
+                  donalListController.donarDataModel.donarData?.length ?? 0,
+            ),
+          );
         },
-        itemCount: 150,
       ),
     );
   }

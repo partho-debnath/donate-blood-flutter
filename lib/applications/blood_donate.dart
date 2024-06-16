@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../presentation/ui/screens/splash_screen.dart';
+import './binders.dart';
 
 class BloodDonate extends StatelessWidget {
   const BloodDonate({super.key});
@@ -11,6 +12,7 @@ class BloodDonate extends StatelessWidget {
     return GetMaterialApp(
       title: 'Blood Donate',
       debugShowCheckedModeBanner: false,
+      initialBinding: ControllerBinder(),
       theme: ThemeData(
         colorSchemeSeed: const Color(0xffff0000),
         appBarTheme: AppBarTheme.of(context).copyWith(

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/donal_model_data.dart';
+import 'donar_detail_screen.dart';
+
 class DonarCard extends StatelessWidget {
-  const DonarCard({super.key});
+  final DonarData donarData;
+  const DonarCard({super.key, required this.donarData});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,15 @@ class DonarCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const DonarDetailScreen();
+              },
+            ),
+          );
+        },
         splashColor: Colors.red.shade100,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -24,7 +36,8 @@ class DonarCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=1380&t=st=1718523845~exp=1718524445~hmac=04fdacfddd221059842eada08e3e6330c3528bffb00f4a15d77a8556b1bb8045',
+                  '${donarData.image}',
+                  // 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=1380&t=st=1718523845~exp=1718524445~hmac=04fdacfddd221059842eada08e3e6330c3528bffb00f4a15d77a8556b1bb8045',
                   height: 80,
                   width: 80,
                   fit: BoxFit.cover,
@@ -40,42 +53,42 @@ class DonarCard extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.only(left: 10),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Text>[
                     Text(
-                      'M Tintin',
-                      style: TextStyle(
+                      donarData.fullName,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text('Address'),
-                    Text('ID: 123'),
+                    Text('${donarData.address}'),
+                    Text('ID: ${donarData.id}'),
                   ],
                 ),
               ),
               const Spacer(),
-              const Column(
+              Column(
                 children: [
                   Spacer(),
                   Text('Donation 1'),
                   Text('Age 26'),
-                  Text('Male'),
+                  Text('${donarData.gender}'),
                 ],
               ),
               const SizedBox(width: 10),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Flexible(
+                  Flexible(
                     child: Card(
-                      margin: EdgeInsets.all(0.0),
+                      margin: const EdgeInsets.all(0.0),
                       child: Padding(
-                        padding: EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          'AB+',
-                          style: TextStyle(
+                          '${donarData.bloodGroup}',
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.red,

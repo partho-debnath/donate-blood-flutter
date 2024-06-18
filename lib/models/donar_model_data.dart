@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class DonarModelData {
   int? count;
   String? next;
@@ -18,7 +16,7 @@ class DonarModelData {
     next = json['next'];
     previous = json['previous'];
 
-    donarData = json['results'].map<DonarData>((data) {
+    donarData = json['results']?.map<DonarData>((data) {
       var ab = DonarData.fromJson(data);
       return ab;
     }).toList();

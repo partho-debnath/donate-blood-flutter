@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/donal_model_data.dart';
+import '../../../models/donar_model_data.dart';
 import 'donar_detail_screen.dart';
 
 class DonarCard extends StatelessWidget {

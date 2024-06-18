@@ -21,22 +21,18 @@ class NetworkCaller {
           'Authorization': 'Bearer $token'
         },
       );
-      log('---------------------');
+      Map<String, dynamic> data = jsonDecode(response.body);
+      print(data.runtimeType);
       if (response.statusCode == 200) {
         log('NetworkCaller: Ok');
-        Map<String, dynamic> data = jsonDecode(response.body);
-        print(data.runtimeType);
         // print(data);
         return NetworkResponse.fromJson(data);
       }
 
-      Map<String, dynamic> data = jsonDecode(response.body);
-      print(data.runtimeType);
-      // print(data);
-      return NetworkResponse.fromJson({});
+      return NetworkResponse.fromJson(data);
     } catch (e) {
-      log(e.toString());
-      return NetworkResponse('-1', -2, null, null);
+      log('NetworkCaller Error: $e');
+      return NetworkResponse('-1', -200, null, e.toString());
     }
   }
 }

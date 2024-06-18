@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    Get.find<DonalListController>().getDonarData();
+    Get.find<DonarListController>().getDonarData();
     super.initState();
   }
 
@@ -50,10 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       drawer: const Drawer(),
-      body: GetBuilder<DonalListController>(
+      body: GetBuilder<DonarListController>(
         builder: (donalListController) {
           if (donalListController.isDonarDataInProgress) {
             return const Center(child: CircularProgressIndicator());
+          } else if (donalListController.donarDataModel == null) {
+            return const Center(child: Text('No Data!'));
           }
           return RefreshIndicator(
             onRefresh: () async {
@@ -63,13 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 return DonarCard(
                   donarData:
-                      donalListController.donarDataModel.donarData![index],
+                      donalListController.donarDataModel!.donarData![index],
                 );
               },
               itemCount:
-                  donalListController.donarDataModel.donarData?.length ?? 0,
+                  donalListController.donarDataModel!.donarData?.length ?? 0,
             ),
           );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Get.find<DonarListController>().getDonarData();
         },
       ),
     );

@@ -5,6 +5,7 @@ import '../../state_holder/donar_list_controller.dart';
 import '../widgets/donar_card.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String routeName = '/home-screen/';
   const HomeScreen({super.key});
 
   @override

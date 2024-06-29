@@ -1,19 +1,16 @@
-import 'package:blooddonate/presentation/ui/screens/home_screen.dart';
+import 'package:blooddonate/presentation/ui/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/button_text.dart';
-import 'registration_screen.dart';
-
-class LoginScreen extends StatefulWidget {
-  static const String routeName = '/login-screen/';
-  const LoginScreen({super.key});
+class RegistrationScreen extends StatefulWidget {
+  static const String routeName = '/registration-screen/';
+  const RegistrationScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
   late final _confirmPasswordFocus;
   late String? password, confirmPassword;
@@ -145,37 +142,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (form.currentState!.validate() == true) {
                           form.currentState!.save();
                           form.currentState!.reset();
-                          Get.offAllNamed(HomeScreen.routeName);
                         } else {
                           print('-----');
                         }
                       },
                       child: const Text(
-                        'Login',
+                        'Sign Up',
                       ),
                     ),
                     const SizedBox(height: 2),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        minimumSize: const Size(50, 30),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: Color(0xffff0000),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'You have\'t an account?',
+                          'Have an account?',
                           style: TextStyle(
                             color: Colors.red.shade300,
                             fontSize: 20,
@@ -184,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.toNamed(RegistrationScreen.routeName);
+                            Get.back();
                           },
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -192,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           child: const Text(
-                            'Sign Up',
+                            'Login',
                             style: TextStyle(
                               color: Color(0xffff0000),
                               fontSize: 20,

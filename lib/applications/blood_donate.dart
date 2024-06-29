@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../presentation/ui/screens/home_screen.dart';
 import '../presentation/ui/screens/login_screen.dart';
+import '../presentation/ui/screens/registration_screen.dart';
 import '../presentation/ui/screens/splash_screen.dart';
 import './binders.dart';
 
@@ -27,7 +30,7 @@ class BloodDonate extends StatelessWidget {
         ),
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          // fillColor: Colors.white,
+          fillColor: Colors.white,
           border: OutlineInputBorder(
             // gapPadding: 4,
             // borderSide: BorderSide.none,
@@ -41,6 +44,33 @@ class BloodDonate extends StatelessWidget {
             ),
           ),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: const WidgetStatePropertyAll<Color>(
+              Colors.white,
+            ),
+            textStyle: const WidgetStatePropertyAll<TextStyle>(
+              TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            backgroundColor: const WidgetStatePropertyAll<Color>(
+              Color(0xffff0000),
+            ),
+            shape: WidgetStatePropertyAll<OutlinedBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            minimumSize: const WidgetStatePropertyAll(
+              Size.fromHeight(40),
+            ),
+            maximumSize: const WidgetStatePropertyAll(
+              Size.fromHeight(80),
+            ),
+          ),
+        ),
       ),
       initialRoute: LoginScreen.routeName,
       getPages: [
@@ -50,7 +80,15 @@ class BloodDonate extends StatelessWidget {
         ),
         GetPage(
           name: LoginScreen.routeName,
-          page: () => LoginScreen(),
+          page: () => const LoginScreen(),
+        ),
+        GetPage(
+          name: RegistrationScreen.routeName,
+          page: () => const RegistrationScreen(),
+        ),
+        GetPage(
+          name: HomeScreen.routeName,
+          page: () => const HomeScreen(),
         ),
       ],
     );

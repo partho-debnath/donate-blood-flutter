@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../presentation/ui/screens/login_screen.dart';
 import '../presentation/ui/screens/splash_screen.dart';
 import './binders.dart';
 
@@ -26,27 +27,30 @@ class BloodDonate extends StatelessWidget {
         ),
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          fillColor: Colors.white,
+          // fillColor: Colors.white,
           border: OutlineInputBorder(
             // gapPadding: 4,
-            borderSide: BorderSide.none,
+            // borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
               Radius.circular(15),
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
               Radius.circular(15),
             ),
           ),
         ),
       ),
-      initialRoute: SplashScreen.routeName,
+      initialRoute: LoginScreen.routeName,
       getPages: [
         GetPage(
           name: SplashScreen.routeName,
           page: () => const SplashScreen(),
+        ),
+        GetPage(
+          name: LoginScreen.routeName,
+          page: () => LoginScreen(),
         ),
       ],
     );

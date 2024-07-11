@@ -15,6 +15,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
   late final _confirmPasswordFocus;
   late String? password, confirmPassword;
+  final TextEditingController _dateAndBirthTextController =
+      TextEditingController();
   bool isPasswordInvisible = true, isConfirmPasswordInvisible = true;
 
   @override
@@ -26,6 +28,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   void dispose() {
     _confirmPasswordFocus.dispose();
+    _dateAndBirthTextController.dispose();
     super.dispose();
   }
 
@@ -94,7 +97,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         prefixIcon: Icon(Icons.email),
                       ),
                       onSaved: (newValue) {
-                        print('Email: $newValue');
+                        log('Email: $newValue');
                       },
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
@@ -145,9 +148,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                             ],
-                            onChanged: (value) {
-                              log(value);
-                            },
+                            onChanged: (value) {},
                             validator: (value) {
                               if (value?.isEmpty ?? true) {
                                 return 'Select your gender';
@@ -205,31 +206,111 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             },
                           ),
                         ),
-                        const SizedBox(width: 5),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: <Widget>[
                         Flexible(
                           child: TextFormField(
+                            onTap: () {
+                              showCalender(context);
+                            },
+                            readOnly: true,
+                            controller: _dateAndBirthTextController,
                             decoration: InputDecoration(
-                              hintText: 'Date&Birth',
-                              // labelText: 'YY/MM/DD',
-                              suffixIcon: IconButton(
+                              hintText: 'Date of Birth',
+                              prefixIcon: IconButton(
                                 onPressed: () {
-                                  showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime(2024),
-                                    initialDatePickerMode: DatePickerMode.year,
-                                    initialEntryMode:
-                                        DatePickerEntryMode.calendar,
-                                  ).then((onValue) {
-                                    log(onValue.toString());
-                                  });
+                                  showCalender(context);
                                 },
-                                icon: const Icon(Icons.arrow_downward),
+                                icon: const Icon(
+                                  Icons.calendar_month_outlined,
+                                  color: Colors.green,
+                                ),
                               ),
                             ),
+                            validator: (value) {
+                              if (value?.isEmpty ?? true) {
+                                return 'Select your Date of Birth.';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: DropdownButtonFormField(
+                            onChanged: (value) {},
+
+                            hint: RichText(
+                              text: const TextSpan(
+                                style: TextStyle(
+                                  color: Colors.black38,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "Height ",
+                                  ),
+                                  WidgetSpan(
+                                    child: Icon(
+                                      Icons.height,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            items: <DropdownMenuItem>[
+                              ...getHeightList().map<DropdownMenuItem>((value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Text('$value'),
+                                );
+                              }),
+                            ],
+                            // onChanged: (value) {
+                            //   log(value);
+                            // },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Select your height.';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              log('Height $value');
+                            },
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      maxLength: 11,
+                      decoration: const InputDecoration(
+                        hintText: 'Mobile No',
+                        labelText: '+88',
+                        prefixIcon: Icon(Icons.phone, color: Colors.green),
+                      ),
+                      onChanged: (value) {
+                        password = value;
+                      },
+                      onSaved: (newValue) {
+                        log('Mobile No: $newValue');
+                      },
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Enter your mobile number.';
+                        }
+                        if (value!.length < 7) {
+                          return 'Password is too short.';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -252,7 +333,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         password = value;
                       },
                       onSaved: (newValue) {
-                        print('Password: $newValue');
+                        log('Password: $newValue');
                       },
                       onFieldSubmitted: (value) {
                         _confirmPasswordFocus.requestFocus();
@@ -264,6 +345,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         if (value!.length < 7) {
                           return 'Password is too short.';
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(height: 10),
@@ -301,6 +383,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         if (password != confirmPassword) {
                           return 'Password and Confirm Password must be same.';
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(height: 10),
@@ -357,5 +440,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> showCalender(BuildContext context) async {
+    final DateTime? date = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2024),
+      initialDatePickerMode: DatePickerMode.year,
+      initialEntryMode: DatePickerEntryMode.calendar,
+    );
+    if (date != null) {
+      setState(() {
+        _dateAndBirthTextController.text = date.toString();
+      });
+    }
+    return;
+  }
+
+  List<double> getHeightList() {
+    final List<double> heightList = [
+      5.6,
+      6.0,
+      6.5,
+    ];
+    return heightList;
   }
 }

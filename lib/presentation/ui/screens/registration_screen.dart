@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:intl_phone_field/intl_phone_field.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -287,30 +289,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
-                      maxLength: 11,
+                    IntlPhoneField(
+                      autovalidateMode: AutovalidateMode.disabled,
                       decoration: const InputDecoration(
-                        hintText: 'Mobile No',
-                        labelText: '+88',
-                        prefixIcon: Icon(Icons.phone, color: Colors.green),
+                        labelText: 'Phone Number',
                       ),
-                      onChanged: (value) {
-                        password = value;
-                      },
-                      onSaved: (newValue) {
-                        log('Mobile No: $newValue');
+                      initialCountryCode: 'BD',
+                      onChanged: (phone) {
+                        print(phone.completeNumber);
                       },
                       validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return 'Enter your mobile number.';
-                        }
-                        if (value!.length < 7) {
-                          return 'Password is too short.';
-                        }
                         return null;
                       },
+                      onSaved: (value) {
+                        log('Phone Number ->: $value');
+                      },
+                      textInputAction: TextInputAction.next,
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -391,9 +385,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       onPressed: () {
                         if (form.currentState!.validate() == true) {
                           form.currentState!.save();
+
                           // form.currentState!.reset();
+                          log('------Ok-------');
                         } else {
-                          print('-----');
+                          print('---Error--');
                         }
                       },
                       child: const Text(

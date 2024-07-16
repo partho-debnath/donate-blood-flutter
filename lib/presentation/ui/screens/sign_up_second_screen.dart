@@ -91,8 +91,8 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                         setState(() {});
                       },
                       validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return 'Please enter your email address.';
+                        if (value! == 'No Image Select.') {
+                          return 'Please select an Image.';
                         }
 
                         return null;

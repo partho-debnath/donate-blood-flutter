@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../widgets/button_text.dart';
-import 'registration_screen.dart';
+import 'sign_up_first_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login-screen/';
@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.toNamed(RegistrationScreen.routeName);
+                            Get.toNamed(SignUpFirstScreen.routeName);
                           },
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.symmetric(horizontal: 10),

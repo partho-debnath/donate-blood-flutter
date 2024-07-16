@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../presentation/ui/screens/home_screen.dart';
 import '../presentation/ui/screens/login_screen.dart';
-import '../presentation/ui/screens/registration_screen.dart';
+import '../presentation/ui/screens/sign_up_first_screen.dart';
 import '../presentation/ui/screens/splash_screen.dart';
 import './binders.dart';
 
@@ -82,8 +82,8 @@ class BloodDonate extends StatelessWidget {
           page: () => const LoginScreen(),
         ),
         GetPage(
-          name: RegistrationScreen.routeName,
-          page: () => const RegistrationScreen(),
+          name: SignUpFirstScreen.routeName,
+          page: () => const SignUpFirstScreen(),
         ),
         GetPage(
           name: HomeScreen.routeName,

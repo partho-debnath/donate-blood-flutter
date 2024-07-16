@@ -5,32 +5,29 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegistrationScreen extends StatefulWidget {
+import 'sign_up_second_screen.dart';
+
+class SignUpFirstScreen extends StatefulWidget {
   static const String routeName = '/registration-screen/';
-  const RegistrationScreen({super.key});
+  const SignUpFirstScreen({super.key});
 
   @override
-  State<RegistrationScreen> createState() => _RegistrationScreenState();
+  State<SignUpFirstScreen> createState() => _SignUpFirstScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
-  late final _confirmPasswordFocus;
-  late String? password, confirmPassword;
   final TextEditingController _dateAndBirthTextController =
       TextEditingController();
-  bool isPasswordInvisible = true, isConfirmPasswordInvisible = true;
+  final Map<String, dynamic> formData = {};
 
   @override
   void initState() {
-    _confirmPasswordFocus = FocusNode();
     super.initState();
   }
 
   @override
   void dispose() {
-    _confirmPasswordFocus.dispose();
-    _dateAndBirthTextController.dispose();
     super.dispose();
   }
 
@@ -46,8 +43,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Image.asset(
+                      'images/blood-donation.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                    const SizedBox(height: 80),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -63,7 +65,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
-                            onSaved: (newValue) {},
+                            onSaved: (newValue) {
+                              formData.addAll({'first_name': newValue});
+                            },
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
                           ),
@@ -83,7 +87,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
-                            onSaved: (newValue) {},
+                            onSaved: (newValue) {
+                              formData.addAll({'last_name': newValue});
+                            },
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
                           ),
@@ -96,10 +102,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                         hintText: 'E-mail',
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(Icons.email, color: Colors.green),
                       ),
                       onSaved: (newValue) {
                         log('Email: $newValue');
+                        formData.addAll({'email': newValue});
                       },
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
@@ -119,6 +126,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       children: <Widget>[
                         Flexible(
                           child: DropdownButtonFormField(
+                            borderRadius: BorderRadius.circular(10.0),
                             hint: const Text('Gender'),
                             items: <DropdownMenuItem>[
                               DropdownMenuItem(
@@ -157,32 +165,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
-                            onSaved: (value) {
-                              log('Gender $value');
+                            onSaved: (newValue) {
+                              log('Gender $newValue');
+                              formData.addAll({'gender': newValue});
                             },
                           ),
                         ),
                         const SizedBox(width: 5),
                         Flexible(
                           child: DropdownButtonFormField(
-                            hint: RichText(
-                              text: const TextSpan(
-                                style: TextStyle(
-                                  color: Colors.black38,
-                                  fontWeight: FontWeight.bold,
+                            borderRadius: BorderRadius.circular(10.0),
+                            hint: const Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.bloodtype_outlined,
+                                  color: Colors.red,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: "Blood ",
-                                  ),
-                                  WidgetSpan(
-                                    child: Icon(
-                                      Icons.bloodtype_outlined,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                Text('Blood Group'),
+                              ],
                             ),
                             items: const <DropdownMenuItem>[
                               DropdownMenuItem(
@@ -203,8 +203,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
-                            onSaved: (value) {
-                              log('blood $value');
+                            onSaved: (newValue) {
+                              log('blood $newValue');
+                              formData.addAll({'blood_group': newValue});
                             },
                           ),
                         ),
@@ -238,31 +239,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
+                            onSaved: (newValue) {
+                              log('Date of Birth $newValue');
+                              formData.addAll({'date_of_birth': newValue});
+                            },
                           ),
                         ),
                         const SizedBox(width: 10),
                         Flexible(
                           child: DropdownButtonFormField(
-                            onChanged: (value) {},
-
-                            hint: RichText(
-                              text: const TextSpan(
-                                style: TextStyle(
-                                  color: Colors.black38,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: "Height ",
-                                  ),
-                                  WidgetSpan(
-                                    child: Icon(
-                                      Icons.height,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            borderRadius: BorderRadius.circular(10.0),
+                            onChanged: (newValue) {},
+                            hint: const Row(
+                              children: <Widget>[
+                                Icon(Icons.height, color: Colors.green),
+                                Text('Height'),
+                              ],
                             ),
                             items: <DropdownMenuItem>[
                               ...getHeightList().map<DropdownMenuItem>((value) {
@@ -281,8 +273,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               }
                               return null;
                             },
-                            onSaved: (value) {
-                              log('Height $value');
+                            onSaved: (newValue) {
+                              log('Height $newValue');
+                              formData.addAll({'height': newValue});
                             },
                           ),
                         ),
@@ -301,91 +294,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       validator: (value) {
                         return null;
                       },
-                      onSaved: (value) {
-                        log('Phone Number ->: $value');
+                      onSaved: (newValue) {
+                        log('Phone Number ->: $newValue');
+                        formData.addAll({'mobile_number': 'newValue'});
                       },
                       textInputAction: TextInputAction.next,
-                    ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                      obscureText: isPasswordInvisible,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        prefixIcon: const Icon(Icons.password),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isPasswordInvisible = !isPasswordInvisible;
-                            });
-                          },
-                          icon: const Icon(Icons.remove_red_eye),
-                        ),
-                      ),
-                      onChanged: (value) {
-                        password = value;
-                      },
-                      onSaved: (newValue) {
-                        log('Password: $newValue');
-                      },
-                      onFieldSubmitted: (value) {
-                        _confirmPasswordFocus.requestFocus();
-                      },
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return 'Enter password.';
-                        }
-                        if (value!.length < 7) {
-                          return 'Password is too short.';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      focusNode: _confirmPasswordFocus,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.done,
-                      obscureText: isConfirmPasswordInvisible,
-                      decoration: InputDecoration(
-                        hintText: 'Confirm Password',
-                        prefixIcon: const Icon(Icons.password),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isConfirmPasswordInvisible =
-                                  !isConfirmPasswordInvisible;
-                            });
-                          },
-                          icon: const Icon(Icons.remove_red_eye),
-                        ),
-                      ),
-                      onChanged: (value) {
-                        confirmPassword = value;
-                      },
-                      onSaved: (newValue) {
-                        print('Password: $newValue');
-                      },
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return 'Enter password.';
-                        }
-                        if (value!.length < 7) {
-                          return 'Password is too short.';
-                        }
-                        if (password != confirmPassword) {
-                          return 'Password and Confirm Password must be same.';
-                        }
-                        return null;
-                      },
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
                         if (form.currentState!.validate() == true) {
                           form.currentState!.save();
-
+                          log(formData.toString());
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SignUpSecondScreen(
+                                  formData: formData,
+                                );
+                              },
+                            ),
+                          );
                           // form.currentState!.reset();
                           log('------Ok-------');
                         } else {
@@ -393,7 +322,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         }
                       },
                       child: const Text(
-                        'Sign Up',
+                        'Next',
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -418,7 +347,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           child: const Text(
-                            'Login',
+                            'Sign In',
                             style: TextStyle(
                               color: Color(0xffff0000),
                               fontSize: 20,

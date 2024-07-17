@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
   final TextEditingController _dateAndBirthTextController =
       TextEditingController();
+  late DateTime dateAndBirth;
   final Map<String, dynamic> formData = {};
 
   @override
@@ -212,74 +214,34 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: <Widget>[
-                        Flexible(
-                          child: TextFormField(
-                            onTap: () {
-                              showCalender(context);
-                            },
-                            readOnly: true,
-                            controller: _dateAndBirthTextController,
-                            decoration: InputDecoration(
-                              hintText: 'Date of Birth',
-                              prefixIcon: IconButton(
-                                onPressed: () {
-                                  showCalender(context);
-                                },
-                                icon: const Icon(
-                                  Icons.calendar_month_outlined,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value?.isEmpty ?? true) {
-                                return 'Select your Date of Birth.';
-                              }
-                              return null;
-                            },
-                            onSaved: (newValue) {
-                              log('Date of Birth $newValue');
-                              formData.addAll({'date_of_birth': newValue});
-                            },
+                    TextFormField(
+                      onTap: () {
+                        showCalender(context);
+                      },
+                      readOnly: true,
+                      controller: _dateAndBirthTextController,
+                      decoration: InputDecoration(
+                        hintText: 'Date of Birth',
+                        prefixIcon: IconButton(
+                          onPressed: () {
+                            showCalender(context);
+                          },
+                          icon: const Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.green,
                           ),
                         ),
-                        const SizedBox(width: 10),
-                        Flexible(
-                          child: DropdownButtonFormField(
-                            borderRadius: BorderRadius.circular(10.0),
-                            onChanged: (newValue) {},
-                            hint: const Row(
-                              children: <Widget>[
-                                Icon(Icons.height, color: Colors.green),
-                                Text('Height'),
-                              ],
-                            ),
-                            items: <DropdownMenuItem>[
-                              ...getHeightList().map<DropdownMenuItem>((value) {
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: Text('$value'),
-                                );
-                              }),
-                            ],
-                            // onChanged: (value) {
-                            //   log(value);
-                            // },
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Select your height.';
-                              }
-                              return null;
-                            },
-                            onSaved: (newValue) {
-                              log('Height $newValue');
-                              formData.addAll({'height': newValue});
-                            },
-                          ),
-                        ),
-                      ],
+                      ),
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Select your Date of Birth.';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        log('Date of Birth $newValue');
+                        formData.addAll({'date_of_birth': dateAndBirth});
+                      },
                     ),
                     const SizedBox(height: 10),
                     IntlPhoneField(
@@ -298,7 +260,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                         log('Phone Number ->: $newValue');
                         formData.addAll({'mobile_number': 'newValue'});
                       },
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.done,
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
@@ -376,19 +338,11 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
       initialEntryMode: DatePickerEntryMode.calendar,
     );
     if (date != null) {
+      dateAndBirth = date;
       setState(() {
-        _dateAndBirthTextController.text = date.toString();
+        _dateAndBirthTextController.text = DateFormat.yMMMEd().format(date);
       });
     }
     return;
-  }
-
-  List<double> getHeightList() {
-    final List<double> heightList = [
-      5.6,
-      6.0,
-      6.5,
-    ];
-    return heightList;
   }
 }

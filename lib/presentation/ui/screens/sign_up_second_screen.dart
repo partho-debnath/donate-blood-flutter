@@ -104,8 +104,8 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                         Flexible(
                           child: TextFormField(
                             decoration: const InputDecoration(
-                              hintText: 'Age',
-                              helperText: 'Years',
+                              labelText: 'Weight',
+                              hintText: '60Kg',
                             ),
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.next,

@@ -2,7 +2,6 @@ import 'package:blooddonate/presentation/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/button_text.dart';
 import 'sign_up_first_screen.dart';
 
 class LoginScreen extends StatefulWidget {

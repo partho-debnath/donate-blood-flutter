@@ -5,6 +5,9 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
+
+import '../utils/gps_location.dart';
 
 class SignUpSecondScreen extends StatefulWidget {
   Map<String, dynamic> formData;
@@ -22,6 +25,7 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
   late String? password, confirmPassword;
   File? imageFile;
   bool isPasswordInvisible = true, isConfirmPasswordInvisible = true;
+  LocationData? locationData;
 
   @override
   void initState() {
@@ -104,6 +108,27 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                         Flexible(
                           child: TextFormField(
                             decoration: const InputDecoration(
+                                labelText: 'Height in Feet',
+                                hintText: '6.7',
+                                prefixIcon:
+                                    Icon(Icons.height, color: Colors.green)),
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value?.isEmpty ?? true) {
+                                return 'Select your Date of Birth.';
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              widget.formData.addAll({'height': newValue});
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
                               labelText: 'Weight',
                               hintText: '60Kg',
                             ),
@@ -115,43 +140,45 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                               }
                               return null;
                             },
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Flexible(
-                          child: DropdownButtonFormField(
-                            borderRadius: BorderRadius.circular(10.0),
-                            onChanged: (value) {},
-
-                            hint: const Row(
-                              children: <Widget>[
-                                Icon(Icons.height, color: Colors.green),
-                                Text('Height'),
-                              ],
-                            ),
-                            items: <DropdownMenuItem>[
-                              ...getHeightList().map<DropdownMenuItem>((value) {
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: Text('$value'),
-                                );
-                              }),
-                            ],
-                            // onChanged: (value) {
-                            //   log(value);
-                            // },
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Select your height.';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              log('Height $value');
+                            onSaved: (newValue) {
+                              widget.formData.addAll({'weight': newValue});
                             },
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      maxLines: 2,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        hintText: 'Address',
+                        prefixIcon: const Icon(Icons.map, color: Colors.green),
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            locationData = await getGpsLocation();
+                            if (locationData != null) {
+                              log('locationData $locationData');
+                              log('Latitude ${locationData!.latitude}');
+                              log('Longitude ${locationData!.longitude}');
+                            }
+                          },
+                          icon: const Tooltip(
+                            message: 'Tap this Icon.',
+                            child: Icon(Icons.gps_fixed),
+                          ),
+                        ),
+                      ),
+                      onSaved: (newValue) {
+                        log('Address: $newValue');
+                        widget.formData.addAll({'address': newValue});
+                      },
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Enter your address.';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -175,6 +202,7 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                       },
                       onSaved: (newValue) {
                         log('Password: $newValue');
+                        widget.formData.addAll({'password': newValue});
                       },
                       onFieldSubmitted: (value) {
                         _confirmPasswordFocus.requestFocus();
@@ -213,6 +241,7 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                       },
                       onSaved: (newValue) {
                         print('Password: $newValue');
+                        widget.formData.addAll({'confirm_password': newValue});
                       },
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
@@ -232,9 +261,9 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                       onPressed: () {
                         if (form.currentState!.validate() == true) {
                           form.currentState!.save();
-
-                          // form.currentState!.reset();
                           log('------Ok-------');
+                          log(widget.formData.toString());
+                          // form.currentState!.reset();
                         } else {
                           print('---Error--');
                         }
@@ -283,15 +312,6 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
         ),
       ),
     );
-  }
-
-  List<double> getHeightList() {
-    final List<double> heightList = [
-      5.6,
-      6.0,
-      6.5,
-    ];
-    return heightList;
   }
 
   Future<ImageSource?> showImageSource() async {

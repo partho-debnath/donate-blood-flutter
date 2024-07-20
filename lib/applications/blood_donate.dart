@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../presentation/ui/screens/home_screen.dart';
-import '../presentation/ui/screens/login_screen.dart';
+import '../presentation/ui/screens/signin_screen.dart';
 import '../presentation/ui/screens/sign_up_first_screen.dart';
 import '../presentation/ui/screens/splash_screen.dart';
 import './binders.dart';
@@ -71,15 +71,15 @@ class BloodDonate extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: LoginScreen.routeName,
+      initialRoute: SignInScreen.routeName,
       getPages: [
         GetPage(
           name: SplashScreen.routeName,
           page: () => const SplashScreen(),
         ),
         GetPage(
-          name: LoginScreen.routeName,
-          page: () => const LoginScreen(),
+          name: SignInScreen.routeName,
+          page: () => const SignInScreen(),
         ),
         GetPage(
           name: SignUpFirstScreen.routeName,

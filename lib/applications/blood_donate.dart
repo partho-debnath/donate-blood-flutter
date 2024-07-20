@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../presentation/ui/screens/home_screen.dart';
-import '../presentation/ui/screens/signin_screen.dart';
+import '../presentation/ui/screens/send_email_otp_screen.dart';
+import '../presentation/ui/screens/sign_in_screen.dart';
 import '../presentation/ui/screens/sign_up_first_screen.dart';
 import '../presentation/ui/screens/splash_screen.dart';
 import './binders.dart';
@@ -48,14 +49,14 @@ class BloodDonate extends StatelessWidget {
             foregroundColor: const WidgetStatePropertyAll<Color>(
               Colors.white,
             ),
+            backgroundColor: const WidgetStatePropertyAll<Color>(
+              Color(0xffff0000),
+            ),
             textStyle: const WidgetStatePropertyAll<TextStyle>(
               TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            backgroundColor: const WidgetStatePropertyAll<Color>(
-              Color(0xffff0000),
             ),
             shape: WidgetStatePropertyAll<OutlinedBorder>(
               RoundedRectangleBorder(
@@ -65,9 +66,9 @@ class BloodDonate extends StatelessWidget {
             minimumSize: const WidgetStatePropertyAll(
               Size.fromHeight(40),
             ),
-            maximumSize: const WidgetStatePropertyAll(
-              Size.fromHeight(80),
-            ),
+            // maximumSize: const WidgetStatePropertyAll(
+            //   Size.fromHeight(80),
+            // ),
           ),
         ),
       ),
@@ -88,6 +89,10 @@ class BloodDonate extends StatelessWidget {
         GetPage(
           name: HomeScreen.routeName,
           page: () => const HomeScreen(),
+        ),
+        GetPage(
+          name: SendEmailOtpScreen.routeName,
+          page: () => const SendEmailOtpScreen(),
         ),
       ],
     );

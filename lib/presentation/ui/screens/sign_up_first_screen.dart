@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'sign_up_second_screen.dart';
 
 class SignUpFirstScreen extends StatefulWidget {
-  static const String routeName = '/registration-screen/';
+  static const String routeName = '/sign-up-first-screen/';
   const SignUpFirstScreen({super.key});
 
   @override

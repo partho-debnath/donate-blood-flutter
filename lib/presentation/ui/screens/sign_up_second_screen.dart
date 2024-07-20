@@ -11,7 +11,7 @@ import '../utils/gps_location.dart';
 
 class SignUpSecondScreen extends StatefulWidget {
   Map<String, dynamic> formData;
-  static const String routeName = '/Sign-Up-Second-screen/';
+  static const String routeName = '/sign-up-second-screen/';
   SignUpSecondScreen({super.key, required this.formData});
 
   @override
@@ -100,7 +100,6 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                       if (value! == 'No Image Select.') {
                         return 'Please select an Image.';
                       }
-
                       return null;
                     },
                   ),
@@ -343,7 +342,6 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
         );
       },
     );
-
     return imageSource;
   }
 

@@ -4,9 +4,10 @@ import 'dart:developer';
 
 import './sign_up_first_screen.dart';
 import './home_screen.dart';
+import 'send_email_otp_screen.dart';
 
 class SignInScreen extends StatefulWidget {
-  static const String routeName = '/login-screen/';
+  static const String routeName = '/sign-in-screen/';
   const SignInScreen({super.key});
 
   @override
@@ -119,7 +120,9 @@ class _LoginScreenState extends State<SignInScreen> {
                       minimumSize: const Size(50, 30),
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(SendEmailOtpScreen.routeName);
+                    },
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(

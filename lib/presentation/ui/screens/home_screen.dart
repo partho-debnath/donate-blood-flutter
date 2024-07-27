@@ -1,3 +1,4 @@
+import 'package:blooddonate/presentation/ui/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,7 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: <Widget>[
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(SignInScreen.routeName);
+              },
               icon: const Icon(Icons.person),
             ),
           ],

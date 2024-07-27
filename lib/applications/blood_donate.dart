@@ -8,6 +8,7 @@ import '../presentation/ui/screens/sign_in_screen.dart';
 import '../presentation/ui/screens/sign_up_first_screen.dart';
 import '../presentation/ui/screens/splash_screen.dart';
 import './binders.dart';
+import './app_colors.dart';
 
 class BloodDonate extends StatelessWidget {
   const BloodDonate({super.key});
@@ -18,10 +19,10 @@ class BloodDonate extends StatelessWidget {
       title: 'Blood Donate',
       debugShowCheckedModeBanner: false,
       initialBinding: ControllerBinder(),
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0xffff0000),
+      theme: ThemeData().copyWith(
+        colorScheme: AppColor.colorScheme,
         appBarTheme: AppBarTheme.of(context).copyWith(
-          color: const Color(0xffff0000),
+          color: AppColor.primaryColor,
           centerTitle: true,
           foregroundColor: Colors.white,
           titleTextStyle: const TextStyle(
@@ -51,8 +52,9 @@ class BloodDonate extends StatelessWidget {
               Colors.white,
             ),
             backgroundColor: const WidgetStatePropertyAll<Color>(
-              Color(0xffff0000),
+              AppColor.primaryColor,
             ),
+
             textStyle: const WidgetStatePropertyAll<TextStyle>(
               TextStyle(
                 fontSize: 25,
@@ -65,7 +67,7 @@ class BloodDonate extends StatelessWidget {
               ),
             ),
             minimumSize: const WidgetStatePropertyAll(
-              Size.fromHeight(40),
+              Size.fromHeight(45),
             ),
             // maximumSize: const WidgetStatePropertyAll(
             //   Size.fromHeight(80),

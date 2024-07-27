@@ -95,7 +95,7 @@ class DonarCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                              color: AppColor.primaryColor,
                             ),
                           ),
                         ),

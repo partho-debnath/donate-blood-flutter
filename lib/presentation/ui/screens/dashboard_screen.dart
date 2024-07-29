@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './blood_donate_request_screen.dart';
+import './blood_donated_list_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const String routeName = '/dashboard-screen/';
@@ -32,10 +33,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
+        body: const TabBarView(
+          children: <Widget>[
             BloodDonateRequestScreen(),
-            Text('data 1'),
+            BloodDonatedListScreen()
           ],
         ),
       ),

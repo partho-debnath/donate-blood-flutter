@@ -40,7 +40,7 @@ class _BloodDonateRequestScreenState extends State<BloodDonateRequestScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Image.network(
-                        'http://127.0.0.1:8000/media/profile_pictures/women_2.webp',
+                        'https://www.shutterstock.com/image-photo/profile-picture-smiling-young-african-260nw-1873784920.jpg',
                         height: 80,
                         width: 80,
                         fit: BoxFit.cover,
@@ -69,14 +69,21 @@ class _BloodDonateRequestScreenState extends State<BloodDonateRequestScreen> {
                     ),
                   ),
                   // const Spacer(),
-                  const Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: Chip(
-                      label: Text('Urgent'),
-                      labelPadding: EdgeInsets.symmetric(horizontal: 5),
-                      padding: EdgeInsets.zero,
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text('1 Beg'),
+                        SizedBox(height: 10),
+                        Chip(
+                          label: Text('Urgent'),
+                          labelPadding: EdgeInsets.symmetric(horizontal: 5),
+                          padding: EdgeInsets.zero,
+                        ),
+                      ],
                     ),
                   ),
+                  const SizedBox(width: 10),
                 ],
               ),
             ),

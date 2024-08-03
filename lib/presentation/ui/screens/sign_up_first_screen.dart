@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl/intl.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:intl_phone_field/helpers.dart';
 
+import '../widgets/PhoneNumberFormField.dart';
 import 'sign_up_second_screen.dart';
 
 class SignUpFirstScreen extends StatefulWidget {
@@ -246,7 +246,7 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  IntlPhoneField(
+                  PhoneNumberFormField(
                     autovalidateMode: AutovalidateMode.disabled,
                     decoration: const InputDecoration(
                       labelText: 'Phone Number',
@@ -256,6 +256,11 @@ class _SignUpFirstScreenState extends State<SignUpFirstScreen> {
                       print(phone.completeNumber);
                     },
                     validator: (value) {
+                      if (value == null) {
+                        return 'Enter your mobile number.';
+                      } else if (!isNumeric(value.number)) {
+                        return 'Invalid mobile number';
+                      }
                       return null;
                     },
                     onSaved: (newValue) {

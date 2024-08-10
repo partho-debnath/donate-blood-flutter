@@ -22,6 +22,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Verify OTP'),
@@ -41,13 +42,32 @@ class _OtpScreenState extends State<OtpScreen> {
                     width: 150,
                   ),
                   const SizedBox(height: 30),
+                  Text(
+                    'Enter OTP Code.',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontSize: 35,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'A 6 Digit OTP Code has been Sent.',
+                    style: theme.textTheme.displaySmall?.copyWith(
+                      fontSize: 17,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
                   PinCodeTextField(
                     appContext: context,
                     length: 6,
+                    blinkWhenObscuring: true,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.done,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    obscureText: true,
                     errorTextSpace: 20,
                     errorTextMargin: const EdgeInsets.only(left: 26),
                     pinTheme: PinTheme(
@@ -78,8 +98,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         _form.currentState!.save();
                         log('==' + _formData.toString());
                         _form.currentState!.reset();
-
-                        // _form.currentState!.reset();
                       } else {
                         log('---Error--');
                       }

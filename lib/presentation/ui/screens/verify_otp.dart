@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:pin_code_fields/pin_code_fields.dart';
+
 class OtpScreen extends StatefulWidget {
   final Map<String, dynamic> formData;
   const OtpScreen({super.key, required this.formData});
@@ -39,14 +41,22 @@ class _OtpScreenState extends State<OtpScreen> {
                     width: 150,
                   ),
                   const SizedBox(height: 30),
-                  TextFormField(
+                  PinCodeTextField(
+                    appContext: context,
+                    length: 6,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.done,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    maxLength: 6,
-                    decoration: const InputDecoration(
-                      hintText: 'OTP',
-                      prefixIcon: Icon(Icons.numbers),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    errorTextSpace: 20,
+                    errorTextMargin: const EdgeInsets.only(left: 26),
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 50,
+                      fieldWidth: 40,
+                      activeFillColor: Colors.white,
+                      inactiveColor: Colors.black54,
                     ),
                     onSaved: (newValue) {
                       log('OTP: $newValue');

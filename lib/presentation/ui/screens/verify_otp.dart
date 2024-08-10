@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:blooddonate/presentation/ui/screens/home_screen.dart';
+import 'package:blooddonate/presentation/ui/screens/main_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +21,7 @@ class _OtpScreenState extends State<OtpScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   final ValueNotifier _otpExpiredTimeCounter = ValueNotifier<int>(-1);
   final Map<String, String> _formData = {};
+  final int _resendOtpTimeCount = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -125,38 +128,6 @@ class _OtpScreenState extends State<OtpScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Remember Password?',
-                        style: TextStyle(
-                          color: Colors.red.shade300,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          minimumSize: const Size(50, 30),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Color(0xffff0000),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -171,7 +142,7 @@ class _OtpScreenState extends State<OtpScreen> {
     Timer.periodic(
       const Duration(seconds: 1),
       (time) {
-        if (_otpExpiredTimeCounter.value >= 10) {
+        if (_otpExpiredTimeCounter.value >= _resendOtpTimeCount) {
           time.cancel();
           _otpExpiredTimeCounter.value = -1;
         } else {

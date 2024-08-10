@@ -60,7 +60,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     onSaved: (newValue) {
                       log('OTP: $newValue');
-                      // formData.addAll({'otp': newValue!});
+                      _formData.addAll({'otp': newValue!});
                     },
                     validator: (value) {
                       if (value?.isEmpty ?? true) {
@@ -72,33 +72,40 @@ class _OtpScreenState extends State<OtpScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  ValueListenableBuilder(
-                    valueListenable: _otpExpiredTimeCounter,
-                    builder: (context, value, child) {
-                      return ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          disabledBackgroundColor: Colors.grey.shade400,
-                        ),
-                        onPressed: _otpExpiredTimeCounter.value == -1
-                            ? () {
-                                if (_form.currentState!.validate() == true) {
-                                  _form.currentState!.save();
-                                  log(_formData.toString());
-                                  timer();
-                                  // _form.currentState!.reset();
-                                } else {
-                                  log('-----');
-                                }
-                              }
-                            : null,
-                        child: _otpExpiredTimeCounter.value == -1
-                            ? child
-                            : Text('Send OTP $value.'),
-                      );
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_form.currentState!.validate() == true) {
+                        _form.currentState!.save();
+                        log('==' + _formData.toString());
+                        _form.currentState!.reset();
+
+                        // _form.currentState!.reset();
+                      } else {
+                        log('---Error--');
+                      }
                     },
                     child: const Text(
-                      'Send OTP',
+                      'Next',
                     ),
+                  ),
+                  const SizedBox(height: 10),
+                  ValueListenableBuilder(
+                    valueListenable: _otpExpiredTimeCounter,
+                    child: const Text('Resend OTP'),
+                    builder: (context, value, child) {
+                      return OutlinedButton.icon(
+                        onPressed: _otpExpiredTimeCounter.value == -1
+                            ? () {
+                                log('Send OTP');
+                                timer();
+                              }
+                            : null,
+                        label: _otpExpiredTimeCounter.value == -1
+                            ? child!
+                            : Text('$value Sec.'),
+                        icon: const Icon(Icons.send),
+                      );
+                    },
                   ),
                   const SizedBox(height: 2),
                   Row(

@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:blooddonate/presentation/ui/screens/home_screen.dart';
-import 'package:blooddonate/presentation/ui/screens/main_screens.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
 

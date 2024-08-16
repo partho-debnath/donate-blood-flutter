@@ -17,7 +17,7 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   final ValueNotifier _otpExpiredTimeCounter = ValueNotifier<int>(-1);
-  final Map<String, String> _formData = {};
+  final Map<String, dynamic> _formData = {};
   final int _resendOtpTimeCount = 10;
 
   @override
@@ -81,6 +81,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     onSaved: (newValue) {
                       log('OTP: $newValue');
                       _formData.addAll({'otp': newValue!});
+                      _formData.addAll(widget.formData);
                     },
                     validator: (value) {
                       if (value?.isEmpty ?? true) {

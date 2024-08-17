@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:blooddonate/applications/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import './home_screen.dart';
 import './dashboard_screen.dart';
+import './ask_blood_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main-screen/';
@@ -22,6 +24,9 @@ class _MainScreenState extends State<MainScreen> {
     screens = [
       const HomeScreen(),
       const DashboardScreen(),
+      const AskBloodScreen(),
+      Text('Notification'),
+      Text('Profile'),
     ];
     return Scaffold(
       body: screens.elementAt(currentIndex),
@@ -34,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
             });
           }
         },
-        backgroundColor: const Color(0xffff0000),
+        backgroundColor: AppColor.primaryColor,
         items: bottomNavigationBarItems,
       ),
     );
@@ -48,12 +53,12 @@ class _MainScreenState extends State<MainScreen> {
         ),
         icon: const Icon(Icons.home_outlined),
         label: 'Home',
-        backgroundColor: const Color(0xffff0000),
+        backgroundColor: AppColor.primaryColor,
       ),
       BottomNavigationBarItem(
         icon: const Icon(Icons.dashboard_outlined),
         label: 'Dashboard',
-        backgroundColor: const Color(0xffff0000),
+        backgroundColor: AppColor.primaryColor,
         activeIcon: bottomNavigationBarItemActiveIcon(
           const Icon(Icons.dashboard),
         ),
@@ -61,7 +66,7 @@ class _MainScreenState extends State<MainScreen> {
       BottomNavigationBarItem(
         icon: const Icon(Icons.bloodtype_outlined),
         label: 'Ask Blood',
-        backgroundColor: const Color(0xffff0000),
+        backgroundColor: AppColor.primaryColor,
         activeIcon: bottomNavigationBarItemActiveIcon(
           const Icon(Icons.bloodtype_rounded),
         ),
@@ -69,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
       BottomNavigationBarItem(
         icon: const Icon(Icons.notifications_active_outlined),
         label: 'Notifications',
-        backgroundColor: const Color(0xffff0000),
+        backgroundColor: AppColor.primaryColor,
         activeIcon: bottomNavigationBarItemActiveIcon(
           const Icon(Icons.notifications_active_sharp),
         ),
@@ -77,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
       BottomNavigationBarItem(
         icon: const Icon(Icons.person_outline),
         label: 'Profile',
-        backgroundColor: const Color(0xffff0000),
+        backgroundColor: AppColor.primaryColor,
         activeIcon: bottomNavigationBarItemActiveIcon(
           const Icon(Icons.person),
         ),
@@ -93,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
         borderRadius: const BorderRadius.all(
           Radius.elliptical(20, 25),
         ),
-        color: Colors.red.shade400,
+        color: AppColor.colorSwatch[400],
       ),
       child: icon,
     );

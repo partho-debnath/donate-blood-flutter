@@ -12,7 +12,7 @@ class NetworkCaller {
   }) async {
     try {
       const String token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyNjg5Njk3LCJpYXQiOjE3MjIwODQ4OTcsImp0aSI6Ijk5MzczNWM5YzdiODQ2MmNhNzNlNjc5MWJmZTRmYzg5IiwidXNlcl9pZCI6MX0.BV-z0HOmPdzB0TtVhMAir4euoA-_mRjcfNP9fRSjli0';
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NTEzMzEyLCJpYXQiOjE3MjM5MDg1MTIsImp0aSI6ImEyN2M5N2MzNTUzYjQzMDM5NmMwMDQ3NDNiOGRjZjg4IiwidXNlcl9pZCI6MX0.ohUqDeZkcfC0VBH7SM9obV_8lFCDQo26RZyuxuYCz58';
       final Response response = await get(
         Uri.parse(url),
         headers: {

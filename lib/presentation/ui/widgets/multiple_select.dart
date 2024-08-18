@@ -23,39 +23,36 @@ class _MultipleSelectState extends State<MultipleSelect> {
 
   @override
   Widget build(context) {
-    return Wrap(
-      spacing: 5,
-      runSpacing: 5,
-      children: <Widget>[
-        ...bloodGroups.map<SizedBox>((item) {
-          return SizedBox(
-            height: 35,
-            child: ChoiceChip(
-              label: Text(item['label']),
-              selected: item['isSelected'],
-              onSelected: (value) {
-                final int index = bloodGroups.indexWhere(
-                  (element) {
-                    return element['label'] == item['label'];
-                  },
-                );
-                if (mounted) {
-                  setState(() {
-                    bloodGroups[index]['isSelected'] = value;
-                  });
-                }
-                if (value) {
-                  selectedBloodGroups.add(item);
-                } else {
-                  selectedBloodGroups.removeWhere(
-                      (element) => element['label'] == item['label']);
-                }
-                widget.onSelected(selectedBloodGroups);
-              },
-            ),
-          );
-        }),
-      ],
+    return ListView.separated(
+      padding: const EdgeInsets.only(left: 10),
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      separatorBuilder: (context, index) {
+        return const SizedBox(
+          width: 10,
+        );
+      },
+      itemBuilder: (context, index) {
+        return ChoiceChip(
+          label: Text(bloodGroups[index]['label']),
+          selected: bloodGroups[index]['isSelected'],
+          onSelected: (value) {
+            if (mounted) {
+              setState(() {
+                bloodGroups[index]['isSelected'] = value;
+              });
+            }
+            if (value) {
+              selectedBloodGroups.add(bloodGroups[index]);
+            } else {
+              selectedBloodGroups.removeWhere(
+                  (element) => element['label'] == bloodGroups[index]['label']);
+            }
+            widget.onSelected(selectedBloodGroups);
+          },
+        );
+      },
+      itemCount: bloodGroups.length,
     );
   }
 }

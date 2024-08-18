@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../models/donar_model_data.dart';
+import '../widgets/distance_slider.dart';
 import '../widgets/donar_card.dart';
 
 class AskBloodScreen extends StatefulWidget {
@@ -24,13 +25,24 @@ class _AskBloodScreenState extends State<AskBloodScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(5.0),
+          SizedBox(
+            height: 45,
             child: MultipleSelect(onSelected: (value) {
               log(
                 '=========$value',
               );
             }),
+          ),
+          ListTile(
+            leading: const Text('Distance (KM)'),
+            leadingAndTrailingTextStyle: const TextStyle(
+              color: Colors.black87,
+            ),
+            title: DistanceSlider(
+              onChange: (value) {
+                log('=======: $value');
+              },
+            ),
           ),
           Expanded(
             child: ListView.separated(

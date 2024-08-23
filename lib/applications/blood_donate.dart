@@ -19,6 +19,63 @@ class BloodDonate extends StatelessWidget {
       title: 'Blood Donate',
       debugShowCheckedModeBanner: false,
       initialBinding: ControllerBinder(),
+      darkTheme: ThemeData.dark().copyWith(
+          // colorScheme: AppColor.colorScheme,
+          // appBarTheme: AppBarTheme.of(context).copyWith(
+          //   color: AppColor.primaryColor,
+          //   centerTitle: true,
+          //   foregroundColor: Colors.white,
+          //   titleTextStyle: const TextStyle(
+          //     fontWeight: FontWeight.bold,
+          //     fontSize: 25,
+          //   ),
+          // ),
+          // inputDecorationTheme: const InputDecorationTheme(
+          //   filled: true,
+          //   fillColor: Colors.white,
+          //   border: OutlineInputBorder(
+          //     // gapPadding: 4,
+          //     // borderSide: BorderSide.none,
+          //     borderRadius: BorderRadius.all(
+          //       Radius.circular(15),
+          //     ),
+          //   ),
+          //   focusedBorder: OutlineInputBorder(
+          //     borderRadius: BorderRadius.all(
+          //       Radius.circular(15),
+          //     ),
+          //   ),
+          // ),
+          // elevatedButtonTheme: ElevatedButtonThemeData(
+          //   style: ButtonStyle(
+          //     foregroundColor: const WidgetStatePropertyAll<Color>(
+          //       Colors.white,
+          //     ),
+          //     backgroundColor: const WidgetStatePropertyAll<Color>(
+          //       AppColor.primaryColor,
+          //     ),
+
+          //     textStyle: const WidgetStatePropertyAll<TextStyle>(
+          //       TextStyle(
+          //         fontSize: 25,
+          //         fontWeight: FontWeight.bold,
+          //       ),
+          //     ),
+          //     shape: WidgetStatePropertyAll<OutlinedBorder>(
+          //       RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(5),
+          //       ),
+          //     ),
+          //     minimumSize: const WidgetStatePropertyAll(
+          //       Size.fromHeight(45),
+          //     ),
+          //     // maximumSize: const WidgetStatePropertyAll(
+          //     //   Size.fromHeight(80),
+          //     // ),
+          //   ),
+          // ),
+          ),
+      themeMode: ThemeMode.dark,
       theme: ThemeData().copyWith(
         colorScheme: AppColor.colorScheme,
         appBarTheme: AppBarTheme.of(context).copyWith(

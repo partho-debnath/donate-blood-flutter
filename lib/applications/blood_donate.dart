@@ -75,7 +75,7 @@ class BloodDonate extends StatelessWidget {
           //   ),
           // ),
           ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       theme: ThemeData().copyWith(
         colorScheme: AppColor.colorScheme,
         appBarTheme: AppBarTheme.of(context).copyWith(

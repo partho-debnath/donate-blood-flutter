@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './blood_donate_request_screen.dart';
 import './blood_donated_list_screen.dart';
+import './add_blood_post_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const String routeName = '/dashboard-screen/';
@@ -15,7 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Dashboard'),
@@ -30,13 +31,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 text: 'Requested',
               ),
               Tab(text: 'Donated'),
+              Tab(text: 'Add Blood Post'),
             ],
           ),
         ),
         body: const TabBarView(
           children: <Widget>[
             BloodDonateRequestScreen(),
-            BloodDonatedListScreen()
+            BloodDonatedListScreen(),
+            AddBloodPostScreen(),
           ],
         ),
       ),

@@ -109,15 +109,15 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                       Flexible(
                         child: TextFormField(
                           decoration: const InputDecoration(
-                              labelText: 'Height in Feet',
-                              hintText: '6.7',
-                              prefixIcon:
-                                  Icon(Icons.height, color: Colors.green)),
+                            labelText: 'Height in Feet',
+                            hintText: '6.7',
+                            prefixIcon: Icon(Icons.height, color: Colors.green),
+                          ),
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
-                              return 'Select your Date of Birth.';
+                              return 'Enter your height.';
                             }
                             return null;
                           },
@@ -137,7 +137,7 @@ class _SignUpSecondScreenState extends State<SignUpSecondScreen> {
                           textInputAction: TextInputAction.next,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
-                              return 'Select your Date of Birth.';
+                              return 'Enter your weight.';
                             }
                             return null;
                           },

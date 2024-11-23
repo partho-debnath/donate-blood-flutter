@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import './home_screen.dart';
 import './dashboard_screen.dart';
 import './ask_blood_screen.dart';
+import 'ProfileScreen.dart';
 import 'notification_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
       const DashboardScreen(),
       const AskBloodScreen(),
       const NotificationScreen(),
-      Text('Profile'),
+      const ProfileScreen(),
     ];
     return Scaffold(
       body: screens.elementAt(currentIndex),

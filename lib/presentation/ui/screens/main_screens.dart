@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import './home_screen.dart';
 import './dashboard_screen.dart';
 import './ask_blood_screen.dart';
+import 'notification_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main-screen/';
@@ -25,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
       const HomeScreen(),
       const DashboardScreen(),
       const AskBloodScreen(),
-      Text('Notification'),
+      const NotificationScreen(),
       Text('Profile'),
     ];
     return Scaffold(
